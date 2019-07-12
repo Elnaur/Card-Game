@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/07/12 09:17:17.799.pas,C:\Users\lounic16\Documents\RAD Studio\Projects\Unit1.pas=C:\Users\lounic16\Documents\Programming\PAT\PAT GR 11\cardGame_u.pas</Transaction>
+    <Transaction>2019/07/12 09:17:17.799.dfm,C:\Users\lounic16\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\lounic16\Documents\Programming\PAT\PAT GR 11\cardGame_u.dfm</Transaction>
+    <Transaction>2019/07/12 09:17:23.412.dproj,C:\Users\lounic16\Documents\RAD Studio\Projects\Project1.dproj=C:\Users\lounic16\Documents\Programming\PAT\PAT GR 11\cardGame_p.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
