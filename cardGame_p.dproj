@@ -1,6 +1,6 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{FD4819EC-A90F-4A0A-8EAC-3EE1F70EEDE5}</ProjectGuid>
+			<ProjectGuid>{DBF54FEF-00D0-431B-95C0-CB25F94BB8D4}</ProjectGuid>
 			<ProjectVersion>12.0</ProjectVersion>
 			<MainSource>cardGame_p.dpr</MainSource>
 			<Config Condition="'$(Config)'==''">Debug</Config>
@@ -43,9 +43,20 @@
 			<DelphiCompile Include="cardGame_p.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="cardGame_u.pas">
-				<Form>Form1</Form>
+			<DCCReference Include="login_u.pas">
+				<Form>frmLogin</Form>
 			</DCCReference>
+			<DCCReference Include="signup_u.pas">
+				<Form>frmSignUp</Form>
+			</DCCReference>
+			<DCCReference Include="cardGameDB.pas">
+				<Form>dataM</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="mainmenu_u.pas">
+				<Form>frmMainMenu</Form>
+			</DCCReference>
+			<DCCReference Include="encryption_u.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -100,6 +111,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

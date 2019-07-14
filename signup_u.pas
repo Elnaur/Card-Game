@@ -63,9 +63,9 @@ begin
       tblUsers.Close;
       if cbSavePass.Checked = True then
       begin
-        if FileExists(GetCurrentDir + '/text/savedUser.txt') then
+        if FileExists(GetCurrentDir + '/media/text/savedUser.txt') then
         begin
-          Assignfile(fSavedUser, GetCurrentDir + '/text/savedUser.txt');
+          Assignfile(fSavedUser, GetCurrentDir + '/media/text/savedUser.txt');
           Rewrite(fSavedUser);
           writeln(fSavedUser, EncryptStr(edtUsername.Text, key));
           writeln(fSavedUser, EncryptStr(edtPassword.Text, key));
