@@ -1,7 +1,7 @@
-object frmLogin: TfrmLogin
+object frmSignUp: TfrmSignUp
   Left = 0
   Top = 0
-  Caption = 'frmLogin'
+  Caption = 'frmSignUp'
   ClientHeight = 380
   ClientWidth = 314
   Color = clBtnFace
@@ -20,12 +20,12 @@ object frmLogin: TfrmLogin
   PixelsPerInch = 96
   TextHeight = 13
   object lblUsername: TLabel
-    Left = 40
-    Top = 160
+    Left = 20
+    Top = 136
     Width = 63
     Height = 13
     Caption = 'Username:'
-    Font.Charset = ANSI_CHARSET
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Verdana'
@@ -33,12 +33,25 @@ object frmLogin: TfrmLogin
     ParentFont = False
   end
   object lblPassword: TLabel
-    Left = 40
-    Top = 200
+    Left = 20
+    Top = 192
     Width = 59
     Height = 13
     Caption = 'Password:'
-    Font.Charset = ANSI_CHARSET
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lblRePassword: TLabel
+    Left = 20
+    Top = 224
+    Width = 113
+    Height = 13
+    Caption = 'Re-enter password:'
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Verdana'
@@ -46,8 +59,8 @@ object frmLogin: TfrmLogin
     ParentFont = False
   end
   object edtUsername: TEdit
-    Left = 125
-    Top = 157
+    Left = 147
+    Top = 133
     Width = 121
     Height = 21
     Font.Charset = DEFAULT_CHARSET
@@ -59,8 +72,8 @@ object frmLogin: TfrmLogin
     TabOrder = 0
   end
   object edtPassword: TEdit
-    Left = 125
-    Top = 197
+    Left = 147
+    Top = 184
     Width = 121
     Height = 21
     Font.Charset = DEFAULT_CHARSET
@@ -72,40 +85,53 @@ object frmLogin: TfrmLogin
     PasswordChar = '*'
     TabOrder = 1
   end
-  object btnLogin: TButton
+  object edtRePassword: TEdit
+    Left = 147
+    Top = 221
+    Width = 121
+    Height = 21
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 2
+  end
+  object btnSignUp: TButton
     Left = 96
     Top = 293
     Width = 113
     Height = 40
-    Caption = 'Login'
-    Font.Charset = ANSI_CHARSET
+    Caption = 'Sign up'
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
-    Font.Name = 'Verdana'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
-    OnClick = btnLoginClick
-    OnEnter = btnLoginClick
-  end
-  object btnSignUp: TButton
-    Left = 112
-    Top = 339
-    Width = 75
-    Height = 25
-    Caption = 'Sign up'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
     TabOrder = 3
     OnClick = btnSignUpClick
   end
+  object btnBackToLogin: TButton
+    Left = 104
+    Top = 339
+    Width = 97
+    Height = 25
+    Caption = 'Back to login'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = btnBackToLoginClick
+  end
   object cbSavePass: TCheckBox
-    Left = 40
-    Top = 256
+    Left = 20
+    Top = 259
     Width = 113
     Height = 17
     Caption = 'Save password'
@@ -115,6 +141,6 @@ object frmLogin: TfrmLogin
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
   end
 end
