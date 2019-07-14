@@ -95,7 +95,7 @@ end;
 
 procedure TfrmSignUp.FormCreate(Sender: TObject);
 begin
-  left := (Screen.Width div 2) - (frmSignUp.Width div 2);
+  left := (Screen.WorkAreaWidth div 2) - (frmSignUp.Width div 2);
   top := (Screen.WorkAreaHeight div 2) - (frmSignUp.Height div 2);
 end;
 

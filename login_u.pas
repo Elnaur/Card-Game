@@ -29,7 +29,7 @@ var
   frmLogin: TfrmLogin;
 
 const
-  key = 255;
+  key = 42;
 
 implementation
 
