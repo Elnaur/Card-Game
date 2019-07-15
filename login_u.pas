@@ -54,9 +54,9 @@ begin
         Showmessage('Valid username and password.');
         if cbSavePass.Checked = True then
         begin
-          if FileExists(GetCurrentDir + '/media/text/savedUser.txt') then
+          if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
           begin
-            Assignfile(fSavedUser, GetCurrentDir + '/media/text/savedUser.txt');
+            Assignfile(fSavedUser, GetCurrentDir + '/lib/text/savedUser.txt');
             Rewrite(fSavedUser);
             writeln(fSavedUser, EncryptStr(edtUsername.Text, key));
             writeln(fSavedUser, EncryptStr(edtPassword.Text, key));
@@ -86,12 +86,11 @@ end;
 procedure TfrmLogin.FormCreate(Sender: TObject);
 var
   fSavedUser: Textfile;
-  u, p : string;
+  u, p: string;
 begin
-
-  if FileExists(GetCurrentDir + '/media/text/savedUser.txt') then
+  if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
   begin
-    Assignfile(fSavedUser, GetCurrentDir + '/media/text/savedUser.txt');
+    Assignfile(fSavedUser, GetCurrentDir + '/lib/text/savedUser.txt');
     Reset(fSavedUser);
     readln(fSavedUser, u);
     readln(fSavedUser, p);
