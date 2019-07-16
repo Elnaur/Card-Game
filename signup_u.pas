@@ -63,9 +63,9 @@ begin
       tblUsers.Close;
       if cbSavePass.Checked = True then
       begin
-        if FileExists(GetCurrentDir + '/media/text/savedUser.txt') then
+        if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
         begin
-          Assignfile(fSavedUser, GetCurrentDir + '/media/text/savedUser.txt');
+          Assignfile(fSavedUser, GetCurrentDir + '/lib/text/savedUser.txt');
           Rewrite(fSavedUser);
           writeln(fSavedUser, EncryptStr(edtUsername.Text, key));
           writeln(fSavedUser, EncryptStr(edtPassword.Text, key));
@@ -101,6 +101,9 @@ end;
 
 procedure TfrmSignUp.FormShow(Sender: TObject);
 begin
+  edtUsername.Text := frmLogin.edtUsername.Text;
+  edtPassword.Text := frmLogin.edtPassword.Text;
+
   left := frmLogin.left;
   top := frmLogin.top;
 end;

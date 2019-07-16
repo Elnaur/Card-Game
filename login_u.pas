@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, JPEG, pngimage, cardGameDB;
+  Dialogs, ExtCtrls, StdCtrls, JPEG, pngimage;
 
 type
   TfrmLogin = class(TForm)
@@ -35,7 +35,7 @@ implementation
 
 {$R *.dfm}
 
-uses signup_u, mainmenu_u, encryption_u;
+uses signup_u, mainmenu_u, cardGameDB, encryption_u;
 
 procedure TfrmLogin.btnLoginClick(Sender: TObject);
 var

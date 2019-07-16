@@ -25,7 +25,6 @@ object dataM: TdataM
       ':SFP=False;'
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
-    BeforeConnect = connCardGameDBBeforeConnect
     Left = 48
     Top = 64
   end

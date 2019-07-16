@@ -9,7 +9,6 @@ type
   TdataM = class(TDataModule)
     tblUsers: TADOTable;
     connCardGameDB: TADOConnection;
-    procedure connCardGameDBBeforeConnect(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -23,11 +22,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TdataM.connCardGameDBBeforeConnect(Sender: TObject);
-begin
-  //
-end;
 
 procedure TdataM.DataModuleCreate(Sender: TObject);
 begin

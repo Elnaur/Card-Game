@@ -2,8 +2,8 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'frmLogin'
-  ClientHeight = 380
-  ClientWidth = 314
+  ClientHeight = 372
+  ClientWidth = 306
   Color = clBtnFace
   Constraints.MaxHeight = 411
   Constraints.MaxWidth = 322
@@ -84,7 +84,7 @@ object frmLogin: TfrmLogin
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     OnClick = btnLoginClick
     OnEnter = btnLoginClick
   end
@@ -100,7 +100,7 @@ object frmLogin: TfrmLogin
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     OnClick = btnSignUpClick
   end
   object cbSavePass: TCheckBox
@@ -109,12 +109,14 @@ object frmLogin: TfrmLogin
     Width = 113
     Height = 17
     Caption = 'Save password'
+    Checked = True
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    State = cbChecked
+    TabOrder = 2
   end
 end
