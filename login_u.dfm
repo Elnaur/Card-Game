@@ -2,12 +2,12 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'frmLogin'
-  ClientHeight = 372
-  ClientWidth = 306
+  ClientHeight = 404
+  ClientWidth = 314
   Color = clBtnFace
-  Constraints.MaxHeight = 411
+  Constraints.MaxHeight = 435
   Constraints.MaxWidth = 322
-  Constraints.MinHeight = 411
+  Constraints.MinHeight = 435
   Constraints.MinWidth = 322
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -74,7 +74,7 @@ object frmLogin: TfrmLogin
   end
   object btnLogin: TButton
     Left = 96
-    Top = 293
+    Top = 309
     Width = 113
     Height = 40
     Caption = 'Login'
@@ -90,7 +90,7 @@ object frmLogin: TfrmLogin
   end
   object btnSignUp: TButton
     Left = 112
-    Top = 339
+    Top = 355
     Width = 75
     Height = 25
     Caption = 'Sign up'

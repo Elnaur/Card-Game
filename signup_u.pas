@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, JPEG, cardGameDB;
+  Dialogs, StdCtrls, ExtCtrls, JPEG, cardGameDB, DB, ADODB;
 
 type
   TfrmSignUp = class(TForm)
@@ -17,6 +17,8 @@ type
     btnSignUp: TButton;
     btnBackToLogin: TButton;
     cbSavePass: TCheckBox;
+    lblCode: TLabel;
+    edtCode: TEdit;
     procedure btnBackToLoginClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -39,52 +41,101 @@ uses login_u, mainmenu_u, encryption_u;
 procedure TfrmSignUp.btnSignUpClick(Sender: TObject);
 var
   fSavedUser: Textfile;
+  CodeValid: boolean;
+  fDefaultPokemonSelection : Textfile;
 begin
   if edtPassword.Text = edtRePassword.Text then
   begin
     with dataM do
     begin
+      tblPremiumCodes.Open;
+      tblPremiumCodes.First;
+
+      CodeValid := False;
+      if edtCode.Text <> '' then // Verify premium code  if there is one
+      begin
+        while not(tblPremiumCodes.EoF) do
+        begin
+          if (tblPremiumCodes['Code'] = edtCode.Text) and
+            (tblPremiumCodes['Used'] = False) then
+          begin
+            CodeValid := True;
+            tblPremiumCodes['Used'] := True;
+          end;
+        end;
+
+        if CodeValid = False then
+        begin
+          ShowMessage('Invalid or used premium code.');
+          exit;
+        end;
+
+      end;
+
       tblUsers.Open;
       tblUsers.First;
       while not tblUsers.EoF do // Checks if username is taken
       begin
-        if DecryptStr(tblUsers['Username'], key) = edtUsername.Text then
+        if tblUsers['Username'] = edtUsername.Text then
         begin
-          Showmessage('Username already taken.');
+          ShowMessage('Username already taken.');
           tblUsers.Close;
           exit;
         end;
         tblUsers.Next;
       end;
+
       tblUsers.Append;
-      tblUsers['Username'] := EncryptStr(edtUsername.Text, key);
+      tblUsers['Username'] := edtUsername.Text;
       tblUsers['Password'] := EncryptStr(edtPassword.Text, key);
+
+      if CodeValid = True then
+      begin
+        tblUsers['Premium user'] := True;
+      end;
+
+      // Save info into a record
+      //UserInfo.Create(tblUsers['Username']);
+      UserInfo.Username := tblUsers['Username'];
+      UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
+      UserInfo.Admin := tblUsers['Admin'];
+      UserInfo.PremiumUser := tblUsers['PremiumUser'];
+      UserInfo.GamesWon := tblUsers['Won'];
+      UserInfo.GamesLost := tblUsers['Lost'];
+      UserInfo.CardNum := tblUsers['CardNum'];
+
+      Assignfile(fDefaultPokemonSelection, GetCurrentDir + '/lib/text/DefaultPokemonSelection.txt');
+      readln(fDefaultPokemonSelection, UserInfo.Selected);
+      CloseFile(fDefaultPokemonSelection);
+
+      tblUsers['Selected'] := UserInfo.Selected;
+
       tblUsers.Post;
       tblUsers.Close;
+
       if cbSavePass.Checked = True then
       begin
         if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
         begin
           Assignfile(fSavedUser, GetCurrentDir + '/lib/text/savedUser.txt');
           Rewrite(fSavedUser);
-          writeln(fSavedUser, EncryptStr(edtUsername.Text, key));
+          writeln(fSavedUser, edtUsername.Text);
           writeln(fSavedUser, EncryptStr(edtPassword.Text, key));
           CloseFile(fSavedUser);
         end;
       end;
 
-      frmSignup.Hide;
+      frmSignUp.Hide;
       frmMainMenu.Show;
 
     end;
   end
   else
   begin
-    Showmessage('Passwords do not match.');
+    ShowMessage('Passwords do not match.');
     edtPassword.Text := '';
     edtRePassword.Text := '';
   end;
-
 end;
 
 procedure TfrmSignUp.btnBackToLoginClick(Sender: TObject);

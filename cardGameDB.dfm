@@ -11,6 +11,7 @@ object dataM: TdataM
     Top = 16
   end
   object connCardGameDB: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=C:\Us' +
       'ers\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W The' +
@@ -27,5 +28,12 @@ object dataM: TdataM
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 48
     Top = 64
+  end
+  object tblPremiumCodes: TADOTable
+    Connection = connCardGameDB
+    CursorType = ctStatic
+    TableName = 'PremiumUserCodes'
+    Left = 176
+    Top = 120
   end
 end

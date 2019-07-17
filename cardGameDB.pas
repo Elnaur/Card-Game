@@ -9,7 +9,9 @@ type
   TdataM = class(TDataModule)
     tblUsers: TADOTable;
     connCardGameDB: TADOConnection;
+    tblPremiumCodes: TADOTable;
     procedure DataModuleCreate(Sender: TObject);
+    procedure DataSource1DataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -42,6 +44,12 @@ begin
     'Jet OLEDB:Compact Without Replica Repair=False;' + 'Jet OLEDB:SFP=False';
   connCardGameDB.Connected := True;
   tblUsers.Active := True;
+  tblPremiumCodes.Active := True;
 end;
 
-end.
+eprocedure TdataM.DataSource1DataChange(Sender: TObject; Field: TField);
+begin
+
+end;
+
+nd.
