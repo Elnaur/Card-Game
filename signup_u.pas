@@ -94,15 +94,10 @@ begin
         tblUsers['Premium user'] := True;
       end;
 
-      // Save info into a record
-      //UserInfo.Create(tblUsers['Username']);
       UserInfo.Username := tblUsers['Username'];
       UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
       UserInfo.Admin := tblUsers['Admin'];
       UserInfo.PremiumUser := tblUsers['PremiumUser'];
-      UserInfo.GamesWon := tblUsers['Won'];
-      UserInfo.GamesLost := tblUsers['Lost'];
-      UserInfo.CardNum := tblUsers['CardNum'];
 
       Assignfile(fDefaultPokemonSelection, GetCurrentDir + '/lib/text/DefaultPokemonSelection.txt');
       readln(fDefaultPokemonSelection, UserInfo.Selected);

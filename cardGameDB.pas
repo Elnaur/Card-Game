@@ -11,7 +11,6 @@ type
     connCardGameDB: TADOConnection;
     tblPremiumCodes: TADOTable;
     procedure DataModuleCreate(Sender: TObject);
-    procedure DataSource1DataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -47,9 +46,4 @@ begin
   tblPremiumCodes.Active := True;
 end;
 
-eprocedure TdataM.DataSource1DataChange(Sender: TObject; Field: TField);
-begin
-
-end;
-
-nd.
+end.

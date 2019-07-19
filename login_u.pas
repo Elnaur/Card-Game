@@ -31,13 +31,7 @@ type
     Admin: boolean;
     PremiumUser: boolean;
     Password: string;
-    GamesWon: integer;
-    GamesLost: integer;
-    CardNum: integer;
     Selected : string;
-    //Cards: TADOtable;
-
-    constructor Create(tblName: string);
   end;
 
 var
@@ -45,37 +39,13 @@ var
   UserInfo: TUserInfo;
 
 const
-  key = 42;
+  key = 2321;
 
 implementation
 
 {$R *.dfm}
 
 uses signup_u, mainmenu_u, cardGameDB, encryption_u;
-
-{
-constructor TUserInfo.Create(Username: String);
-begin
-  dataM.connCardGameDB.Connected := False;
-  Cards := TADOtable.Create(dataM);
-  Cards.TableName := 'tbl' + Username + 'Cards';
-  Cards.Connection := dataM.connCardGameDB;
-  Cards.ConnectionString :=
-    'Provider=Microsoft.Jet.OLEDB.4.0;' + 'User ID=Admin;' + 'Data Source=' +
-    GetCurrentDir + '\lib\databases\CardGameDB.mdb;' +
-    'Mode=Share Deny None;' + 'Persist Security Info=False;' +
-    'Jet OLEDB:System database="";' + 'Jet OLEDB:Registry Path="";' +
-    'Jet OLEDB:Database Password="";' + 'Jet OLEDB:Engine Type=5;' +
-    'Jet OLEDB:Database Locking Mode=1;' +
-    'Jet OLEDB:Global Partial Bulk Ops=2;' +
-    'Jet OLEDB:Global Bulk Transactions=1;' +
-    'Jet OLEDB:New Database Password="";' +
-    'Jet OLEDB:Create System Database=False;' +
-    'Jet OLEDB:Encrypt Database=False;' +
-    'Jet OLEDB:Don''t Copy Locale on Compact=False;' +
-    'Jet OLEDB:Compact Without Replica Repair=False;' + 'Jet OLEDB:SFP=False';
-end;
-}
 
 procedure TfrmLogin.btnLoginClick(Sender: TObject);
 var
@@ -88,7 +58,7 @@ begin
     tblUsers.First;
     while not tblUsers.EoF do
     begin
-      if tblUsers['Username'] = edtUsername.Text and
+      if (tblUsers['Username'] = edtUsername.Text) and
         (DecryptStr(tblUsers['Password'], key) = edtPassword.Text) then
       begin
         Showmessage('Valid username and password.');
@@ -107,10 +77,7 @@ begin
         UserInfo.Username := tblUsers['Username'];
         UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
         UserInfo.Admin := tblUsers['Admin'];
-        UserInfo.PremiumUser := tblUsers['PremiumUser'];
-        UserInfo.GamesWon := tblUsers['Won'];
-        UserInfo.GamesLost := tblUsers['Lost'];
-        UserInfo.CardNum := tblUsers['CardNum'];
+        UserInfo.PremiumUser := tblUsers['Premium user'];
 
         tblUsers.Close;
 
