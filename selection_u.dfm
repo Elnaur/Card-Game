@@ -112,12 +112,12 @@ object frmSelection: TfrmSelection
     TabOrder = 3
     OnClick = bbAddClick
   end
-  object btnDiscard: TButton
-    Left = 760
-    Top = 588
-    Width = 106
-    Height = 25
-    Caption = 'Discard changes'
+  object btnPlay: TButton
+    Left = 736
+    Top = 595
+    Width = 137
+    Height = 46
+    Caption = 'PLAY'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -125,20 +125,7 @@ object frmSelection: TfrmSelection
     Font.Style = []
     ParentFont = False
     TabOrder = 4
-  end
-  object btnConfrim: TButton
-    Left = 760
-    Top = 619
-    Width = 106
-    Height = 25
-    Caption = 'Confirm changes'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 5
+    OnClick = btnPlayClick
   end
   object rdgSort: TRadioGroup
     Left = 8
@@ -176,7 +163,7 @@ object frmSelection: TfrmSelection
     ParentCtl3D = False
     ParentDoubleBuffered = False
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClick = rdgSortClick
   end
   object rdbAll: TRadioButton
@@ -191,7 +178,7 @@ object frmSelection: TfrmSelection
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     OnClick = rdbAllClick
   end
   object rdbAlphaSort: TRadioButton
@@ -206,7 +193,7 @@ object frmSelection: TfrmSelection
     Font.Name = 'Verdana'
     Font.Style = []
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
     OnClick = rdbAlphaSortClick
   end
 end

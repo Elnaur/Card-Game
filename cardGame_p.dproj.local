@@ -30,5 +30,27 @@
     <Transaction>2019/07/20 20:44:44.695.dfm,C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\Unit1.dfm=C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\gamescreen_u.dfm</Transaction>
     <Transaction>2019/07/20 20:49:01.415.pas,C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\Unit1.pas=C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\admin_u.pas</Transaction>
     <Transaction>2019/07/20 20:49:01.415.dfm,C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\Unit1.dfm=C:\Users\Nicole\Documents\High School PHA\Gr 11 WK 2019\IT - Mr W Theron\PAT\admin_u.dfm</Transaction>
-  </Transactions>
+  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="admin_u.pas"/>
+    <File Path="admin_u.dfm"/>
+    <File Path="cardGameDB.pas"/>
+    <File Path="cardGameDB.dfm"/>
+    <File Path="encryption_u.pas"/>
+    <File Path="gamescreen_u.pas"/>
+    <File Path="gamescreen_u.dfm"/>
+    <File Path="login_u.pas"/>
+    <File Path="login_u.dfm"/>
+    <File Path="mainmenu_u.pas"/>
+    <File Path="mainmenu_u.dfm"/>
+    <File Path="options_u.pas"/>
+    <File Path="options_u.dfm"/>
+    <File Path="rules_u.pas"/>
+    <File Path="rules_u.dfm"/>
+    <File Path="selection_u.pas"/>
+    <File Path="selection_u.dfm"/>
+    <File Path="signup_u.pas"/>
+    <File Path="signup_u.dfm"/>
+    <File Path="viewstats_u.pas"/>
+    <File Path="viewstats_u.dfm"/>
+  </ProjectSortOrder>
 </BorlandProject>

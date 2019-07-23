@@ -26,12 +26,12 @@ type
   end;
 
 type
-  TUserInfo = record{class}
+  TUserInfo = record { class }
     Username: string;
     Admin: boolean;
     PremiumUser: boolean;
     Password: string;
-    Selected : string;
+    SelectionString: string;
   end;
 
 var

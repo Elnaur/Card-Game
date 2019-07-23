@@ -95,9 +95,16 @@ begin
           tblUsers.Next;
         end;
 
+        Assignfile(fDefaultPokemonSelection,
+          GetCurrentDir + '/lib/text/defaultPokemonSelection.txt');
+        reset(fDefaultPokemonSelection);
+        readln(fDefaultPokemonSelection, UserInfo.SelectionString);
+        CloseFile(fDefaultPokemonSelection);
+
         tblUsers.Append;
         tblUsers['Username'] := edtUsername.Text;
         tblUsers['Password'] := EncryptStr(edtPassword.Text, key);
+        tblUsers['Selection string'] := UserInfo.SelectionString;
 
         if CodeValid = True then
         begin
@@ -108,16 +115,12 @@ begin
         UserInfo.Username := tblUsers['Username'];
         UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
         UserInfo.Admin := tblUsers['Admin'];
-        UserInfo.PremiumUser := tblUsers['PremiumUser'];
-
-        Assignfile(fDefaultPokemonSelection,
-          GetCurrentDir + '/lib/text/DefaultPokemonSelection.txt');
-        readln(fDefaultPokemonSelection, UserInfo.Selected);
-        CloseFile(fDefaultPokemonSelection);
+        UserInfo.PremiumUser := tblUsers['Premium user'];
 
         tblUsers.Post;
         tblUsers.Close;
 
+        // Saves username encrypted password in textfile
         if cbSavePass.Checked = True then
         begin
           if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
@@ -154,6 +157,9 @@ procedure TfrmSignUp.FormCreate(Sender: TObject);
 begin
   left := (Screen.WorkAreaWidth div 2) - (frmSignUp.Width div 2);
   top := (Screen.WorkAreaHeight div 2) - (frmSignUp.Height div 2);
+
+  NullStrictConvert := False;
+
 end;
 
 procedure TfrmSignUp.FormShow(Sender: TObject);

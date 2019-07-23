@@ -2,8 +2,8 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'frmLogin'
-  ClientHeight = 404
-  ClientWidth = 314
+  ClientHeight = 396
+  ClientWidth = 306
   Color = clBtnFace
   Constraints.MaxHeight = 435
   Constraints.MaxWidth = 322

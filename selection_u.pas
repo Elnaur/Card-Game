@@ -12,20 +12,19 @@ type
     dbgSelection: TDBGrid;
     bbRemove: TBitBtn;
     bbAdd: TBitBtn;
-    btnDiscard: TButton;
-    btnConfrim: TButton;
+    btnPlay: TButton;
     lblSelection: TLabel;
     lblAvailable: TLabel;
     rdgSort: TRadioGroup;
     rdbAll: TRadioButton;
     rdbAlphaSort: TRadioButton;
-    // procedure btnSearchClick(Sender: TObject);
     procedure rdbAllClick(Sender: TObject);
     procedure rdgSortClick(Sender: TObject);
     procedure rdbAlphaSortClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure bbAddClick(Sender: TObject);
     procedure bbRemoveClick(Sender: TObject);
+    procedure btnPlayClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,27 +41,7 @@ implementation
 
 {$R *.dfm}
 
-uses cardGameDB;
-
-{
-  procedure TfrmSelection.btnSearchClick(Sender: TObject);
-  var
-  i: integer;
-
-  begin
-  with dataM do
-  begin
-  query.Close;
-  query.SQL.Clear;
-  query := TADOQuery.Create(nil);
-  query.Connection := connCardGameDB;
-  query.SQL.Text := 'SELECT * FROM tblPokemonList WHERE ' + rdgSort.Items
-  [rdgSort.ItemIndex] + ' = True';
-  query.Open;
-  dsPokemonList.Dataset := query;
-  end;
-
-  end; }
+uses cardGameDB, gamescreen_u;
 
 procedure TfrmSelection.bbAddClick(Sender: TObject);
 begin
@@ -76,6 +55,12 @@ end;
 procedure TfrmSelection.bbRemoveClick(Sender: TObject);
 begin
   //
+end;
+
+procedure TfrmSelection.btnPlayClick(Sender: TObject);
+begin
+  frmSelection.Hide;
+  frmGameScreen.Show;
 end;
 
 procedure TfrmSelection.FormCreate(Sender: TObject);
