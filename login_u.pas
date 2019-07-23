@@ -74,6 +74,7 @@ begin
           end;
         end;
 
+        // Adds current user data to a record for easy access
         UserInfo.Username := tblUsers['Username'];
         UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
         UserInfo.Admin := tblUsers['Admin'];

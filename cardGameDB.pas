@@ -10,6 +10,10 @@ type
     tblUsers: TADOTable;
     connCardGameDB: TADOConnection;
     tblPremiumCodes: TADOTable;
+    tblUserToPokemon: TADOTable;
+    tblPokemonList: TADOTable;
+    dsPokemonList: TDataSource;
+    dsUserToPokemon: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -44,6 +48,8 @@ begin
   connCardGameDB.Connected := True;
   tblUsers.Active := True;
   tblPremiumCodes.Active := True;
+  tblUserToPokemon.Active := True;
+  tblPokemonList.Active := True;
 end;
 
 end.

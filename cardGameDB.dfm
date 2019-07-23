@@ -1,8 +1,8 @@
 object dataM: TdataM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 349
-  Width = 442
+  Height = 321
+  Width = 553
   object tblUsers: TADOTable
     Connection = connCardGameDB
     CursorType = ctStatic
@@ -24,16 +24,39 @@ object dataM: TdataM
       'EDB:Encrypt Database=False;Jet OLEDB:Don'#39't Copy Locale on Compac' +
       't=False;Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB' +
       ':SFP=False;'
+    LoginPrompt = False
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 48
-    Top = 64
+    Top = 120
   end
   object tblPremiumCodes: TADOTable
     Connection = connCardGameDB
     CursorType = ctStatic
     TableName = 'PremiumUserCodes'
     Left = 176
-    Top = 120
+    Top = 88
+  end
+  object tblUserToPokemon: TADOTable
+    Connection = connCardGameDB
+    TableName = 'UserToPokemon'
+    Left = 176
+    Top = 160
+  end
+  object tblPokemonList: TADOTable
+    Connection = connCardGameDB
+    TableName = 'PokemonList'
+    Left = 176
+    Top = 232
+  end
+  object dsPokemonList: TDataSource
+    DataSet = tblPokemonList
+    Left = 280
+    Top = 232
+  end
+  object dsUserToPokemon: TDataSource
+    DataSet = tblUserToPokemon
+    Left = 280
+    Top = 160
   end
 end

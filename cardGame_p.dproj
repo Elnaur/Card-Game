@@ -57,6 +57,24 @@
 				<Form>frmMainMenu</Form>
 			</DCCReference>
 			<DCCReference Include="encryption_u.pas"/>
+			<DCCReference Include="selection_u.pas">
+				<Form>frmSelection</Form>
+			</DCCReference>
+			<DCCReference Include="options_u.pas">
+				<Form>frmOptions</Form>
+			</DCCReference>
+			<DCCReference Include="rules_u.pas">
+				<Form>frmRules</Form>
+			</DCCReference>
+			<DCCReference Include="viewstats_u.pas">
+				<Form>frmViewStats</Form>
+			</DCCReference>
+			<DCCReference Include="gamescreen_u.pas">
+				<Form>frmGameScreen</Form>
+			</DCCReference>
+			<DCCReference Include="admin_u.pas">
+				<Form>frmAdmin</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

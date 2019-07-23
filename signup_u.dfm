@@ -126,6 +126,7 @@ object frmSignUp: TfrmSignUp
     ParentFont = False
     TabOrder = 4
     OnClick = btnSignUpClick
+    OnEnter = btnSignUpClick
   end
   object btnBackToLogin: TButton
     Left = 104
