@@ -11,7 +11,7 @@ object frmMainMenu: TfrmMainMenu
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object btnPlay: TButton
@@ -50,13 +50,13 @@ object frmMainMenu: TfrmMainMenu
     TabOrder = 3
     OnClick = btnRulesClick
   end
-  object bnAdminOptions: TButton
+  object btnAdminOptions: TButton
     Left = 112
     Top = 472
     Width = 113
     Height = 41
-    Caption = 'bnAdminOptions'
+    Caption = 'btnAdminOptions'
     TabOrder = 4
-    OnClick = bnAdminOptionsClick
+    OnClick = btnAdminOptionsClick
   end
 end

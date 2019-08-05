@@ -18,6 +18,7 @@ type
     rdgSort: TRadioGroup;
     rdbAll: TRadioButton;
     rdbAlphaSort: TRadioButton;
+    btnClear: TButton;
     procedure rdbAllClick(Sender: TObject);
     procedure rdgSortClick(Sender: TObject);
     procedure rdbAlphaSortClick(Sender: TObject);
@@ -33,9 +34,11 @@ type
 
 var
   frmSelection: TfrmSelection;
-  quTypeFilter: TADOQuery;
-  quAlphabeticalSort: TADOQuery;
-  quAll: TADOQuery;
+  qryTypeFilter: TADOQuery;
+  qryAlphabeticalSort: TADOQuery;
+  qryAll: TADOQuery;
+  qryAddSelection: TADOQuery;
+  qryRemoveSelection: TADOQuery;
 
 implementation
 
@@ -47,14 +50,20 @@ procedure TfrmSelection.bbAddClick(Sender: TObject);
 begin
   with dataM do
   begin
-
+    qryRemoveSelection.Open;
+    dsUserToPokemon.DataSet := qryAddSelection;
+    tblUserToPokemon.Refresh;
   end;
 end;
 
-
 procedure TfrmSelection.bbRemoveClick(Sender: TObject);
 begin
-  //
+  with dataM do
+  begin
+    qryAddSelection.Open;
+    dsUserToPokemon.DataSet := qryAddSelection;
+    tblUserToPokemon.Refresh;
+  end;
 end;
 
 procedure TfrmSelection.btnPlayClick(Sender: TObject);
@@ -67,27 +76,44 @@ procedure TfrmSelection.FormCreate(Sender: TObject);
 begin
   with dataM do
   begin
+    // QUERY SET UP
+
     // Type filter query
-    quTypeFilter.Close;
-    quTypeFilter.SQL.Clear;
-    quTypeFilter := TADOQuery.Create(nil);
-    quTypeFilter.Connection := connCardGameDB;
-    quTypeFilter.SQL.Text :=
-      'SELECT * FROM tblPokemonList WHERE ' + rdgSort.Items[rdgSort.ItemIndex]
-      + ' = True';
+    qryTypeFilter.Close;
+    qryTypeFilter.SQL.Clear;
+    qryTypeFilter := TADOQuery.Create(nil);
+    qryTypeFilter.Connection := connCardGameDB;
+    qryTypeFilter.SQL.Text := 'SELECT * ' + 'FROM tblPokemonList' + 'WHERE ' +
+      'First type = ''' + rdgSort.Items[rdgSort.ItemIndex] +
+      ''' OR  Second Type = ''' + rdgSort.Items[rdgSort.ItemIndex] + '''';
+    qryTypeFilter.Close;
 
     // Sort alphabetically query
-    quAlphabeticalSort.Close;
-    quAlphabeticalSort.SQL.Clear;
-    quAlphabeticalSort := TADOQuery.Create(nil);
-    quAlphabeticalSort.Connection := connCardGameDB;
-    quAlphabeticalSort.SQL.Text :=
+    qryAlphabeticalSort.Close;
+    qryAlphabeticalSort.SQL.Clear;
+    qryAlphabeticalSort := TADOQuery.Create(nil);
+    qryAlphabeticalSort.Connection := connCardGameDB;
+    qryAlphabeticalSort.SQL.Text :=
       'SELECT * FROM tblPokemonList ORDER BY Name ASC';
+    qryAlphabeticalSort.Close;
 
     // Add selected pokemon to tblUserToPokemon
+    qryAddSelection.Close;
+    qryAddSelection.SQL.Clear;
+    qryAddSelection := TADOQuery.Create(nil);
+    qryAddSelection.Connection := connCardGameDB;
+    qryAddSelection.SQL.Text :=
+      'SELECT * FROM tblPokemonList WHERE Selected = True';
+    qryAddSelection.Close;
 
     // Remove selected pokemon from tblUserToPokemon
-
+    qryRemoveSelection.Close;
+    qryRemoveSelection.SQL.Clear;
+    qryRemoveSelection := TADOQuery.Create(nil);
+    qryRemoveSelection.Connection := connCardGameDB;
+    qryRemoveSelection.SQL.Text :=
+      'SELECT * FROM tblUserToPokemon WHERE NOT Selected = True';
+    qryRemoveSelection.Close;
 
   end;
 end;
@@ -96,10 +122,8 @@ procedure TfrmSelection.rdbAllClick(Sender: TObject);
 begin
   with dataM do
   begin
-    quAlphabeticalSort.Close;
-    quTypeFilter.Close;
-
     dsPokemonList.DataSet := tblPokemonList;
+    tblPokemonList.Refresh;
   end;
 end;
 
@@ -107,8 +131,9 @@ procedure TfrmSelection.rdbAlphaSortClick(Sender: TObject);
 begin
   with dataM do
   begin
-    quAlphabeticalSort.Open;
-    dsPokemonList.DataSet := quAlphabeticalSort;
+    qryAlphabeticalSort.Open;
+    dsPokemonList.DataSet := qryAlphabeticalSort;
+    tblPokemonList.Refresh;
   end;
 end;
 
@@ -116,8 +141,9 @@ procedure TfrmSelection.rdgSortClick(Sender: TObject);
 begin
   with dataM do
   begin
-    quTypeFilter.Open;
-    dsPokemonList.DataSet := quTypeFilter;
+    qryTypeFilter.Open;
+    dsPokemonList.DataSet := qryTypeFilter;
+    tblPokemonList.Refresh;
   end;
 end;
 

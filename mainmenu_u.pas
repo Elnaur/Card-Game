@@ -12,13 +12,13 @@ type
     btnViewStats: TButton;
     btnOptions: TButton;
     btnRules: TButton;
-    bnAdminOptions: TButton;
-    procedure FormCreate(Sender: TObject);
+    btnAdminOptions: TButton;
     procedure btnViewStatsClick(Sender: TObject);
     procedure btnRulesClick(Sender: TObject);
     procedure btnOptionsClick(Sender: TObject);
-    procedure bnAdminOptionsClick(Sender: TObject);
+    procedure btnAdminOptionsClick(Sender: TObject);
     procedure btnPlayClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +32,7 @@ implementation
 
 {$R *.dfm}
 
-uses selection_u, rules_u, options_u, viewstats_u, admin_u;
+uses selection_u, rules_u, options_u, viewstats_u, admin_u, login_u, signup_u;
 
 procedure TfrmMainMenu.btnRulesClick(Sender: TObject);
 begin
@@ -40,7 +40,7 @@ begin
   frmRules.Show;
 end;
 
-procedure TfrmMainMenu.bnAdminOptionsClick(Sender: TObject);
+procedure TfrmMainMenu.btnAdminOptionsClick(Sender: TObject);
 begin
   frmMainMenu.Hide;
   frmAdmin.Show;
@@ -64,10 +64,18 @@ begin
   frmViewStats.Show;
 end;
 
-procedure TfrmMainMenu.FormCreate(Sender: TObject);
+procedure TfrmMainMenu.FormShow(Sender: TObject);
 begin
   left := (Screen.WorkAreaWidth div 2) - (frmMainMenu.Width div 2);
   top := (Screen.WorkAreaHeight div 2) - (frmMainMenu.Height div 2);
+
+  if UserInfo.Admin = true then
+  begin
+    btnAdminOptions.Visible := True;
+    btnPlay.Enabled := False;
+  end
+  else
+    btnAdminOptions.Visible := False;
 end;
 
 end.

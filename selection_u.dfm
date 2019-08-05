@@ -114,9 +114,9 @@ object frmSelection: TfrmSelection
   end
   object btnPlay: TButton
     Left = 736
-    Top = 595
+    Top = 588
     Width = 137
-    Height = 46
+    Height = 53
     Caption = 'PLAY'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -195,5 +195,13 @@ object frmSelection: TfrmSelection
     ParentFont = False
     TabOrder = 7
     OnClick = rdbAlphaSortClick
+  end
+  object btnClear: TButton
+    Left = 608
+    Top = 588
+    Width = 99
+    Height = 25
+    Caption = 'Clear selection'
+    TabOrder = 8
   end
 end
