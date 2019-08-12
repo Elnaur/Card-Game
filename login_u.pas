@@ -61,7 +61,7 @@ begin
       if (tblUsers['Username'] = edtUsername.Text) and
         (DecryptStr(tblUsers['Password'], key) = edtPassword.Text) then
       begin
-        Showmessage('Valid username and password.');
+        //Showmessage('Valid username and password.');
         if cbSavePass.Checked = True then
         begin
           if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
