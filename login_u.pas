@@ -32,6 +32,9 @@ type
     PremiumUser: boolean;
     Password: string;
     SelectionString: string;
+    Won : integer;
+    Lost : integer;
+    Created : TDateTime
   end;
 
 var
@@ -75,16 +78,19 @@ begin
         end;
 
         // Adds current user data to a record for easy access
+
         UserInfo.Username := tblUsers['Username'];
         UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
         UserInfo.Admin := tblUsers['Admin'];
         UserInfo.PremiumUser := tblUsers['Premium user'];
+        UserInfo.Won := tblUsers['Won'];
+        UserInfo.Lost := tblUsers['Lost'];
+        UserInfo.Created := tblUsers['Account creation date'];
 
         tblUsers.Close;
 
         frmMainMenu.Show;
         frmLogin.Hide;
-
         exit;
       end;
       tblUsers.Next;

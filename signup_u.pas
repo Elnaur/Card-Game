@@ -101,10 +101,15 @@ begin
         readln(fDefaultPokemonSelection, UserInfo.SelectionString);
         CloseFile(fDefaultPokemonSelection);
 
+        // Appends new user's information to the database
         tblUsers.Append;
         tblUsers['Username'] := edtUsername.Text;
         tblUsers['Password'] := EncryptStr(edtPassword.Text, key);
         tblUsers['Selection string'] := UserInfo.SelectionString;
+        tblUsers['Won'] := 0;
+        tblUsers['Lost'] := 0;
+        tblUsers['Account creation date'] := Date;
+        tblUsers['Admin'] := False;
 
         if CodeValid = True then
         begin
@@ -116,6 +121,9 @@ begin
         UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
         UserInfo.Admin := tblUsers['Admin'];
         UserInfo.PremiumUser := tblUsers['Premium user'];
+        UserInfo.Won := tblUsers['Won'];
+        UserInfo.Lost := tblUsers['Lost'];
+        UserInfo.Created := tblUsers['Account creation date'];
 
         tblUsers.Post;
         tblUsers.Close;
