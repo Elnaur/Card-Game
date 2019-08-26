@@ -46,7 +46,7 @@ object frmSelection: TfrmSelection
     Top = 136
     Width = 380
     Height = 446
-    DataSource = dataM.dsPokemonList
+    DataSource = dataM.dsAvailablePokemon
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -65,7 +65,7 @@ object frmSelection: TfrmSelection
     Top = 136
     Width = 380
     Height = 446
-    DataSource = dataM.dsUserToPokemon
+    DataSource = dataM.dsSelectedPokemon
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11

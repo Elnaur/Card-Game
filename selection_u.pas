@@ -37,6 +37,9 @@ var
   qryAddSelection: TADOQuery;
   qryRemoveSelection: TADOQuery;
   qryShowAvailable: TADOQuery;
+  qryMoveAvailable: TADOQuery;
+  qryMoveSelectedToAvailable: TADOQuery;
+  qryClearAvailablePokemon: TADOQuery;
 
 implementation
 
@@ -48,15 +51,15 @@ procedure TfrmSelection.bbAddClick(Sender: TObject);
 begin
   with dataM do
   begin
-    tblUserToPokemon.Append;
-    tblUserToPokemon['Name'] := tblPokemonList['Name'];
-    tblUserToPokemon['Atk'] := tblPokemonList['Atk'];
-    tblUserToPokemon['HP'] := tblPokemonList['HP'];
-    tblUserToPokemon['FirstType'] := tblPokemonList['FirstType'];
-    tblUserToPokemon['SecondType'] := tblPokemonList['SecondType'];
-    tblUserToPokemon['Premium'] := tblPokemonList['Premium'];
-    tblUserToPokemon.Post;
-    tblPokemonList.Delete;
+    tblSelectedPokemon.Append;
+    tblSelectedPokemon['Name'] := tblAvailablePokemon['Name'];
+    tblSelectedPokemon['Atk'] := tblAvailablePokemon['Atk'];
+    tblSelectedPokemon['HP'] := tblAvailablePokemon['HP'];
+    tblSelectedPokemon['FirstType'] := tblAvailablePokemon['FirstType'];
+    tblSelectedPokemon['SecondType'] := tblAvailablePokemon['SecondType'];
+    tblSelectedPokemon['Premium'] := tblAvailablePokemon['Premium'];
+    tblSelectedPokemon.Post;
+    tblAvailablePokemon.Delete;
   end;
 end;
 
@@ -64,16 +67,15 @@ procedure TfrmSelection.bbRemoveClick(Sender: TObject);
 begin
   with dataM do
   begin
-    tblPokemonList.Append;
-    tblPokemonList['Name'] := tblUserToPokemon['Name'];
-    tblPokemonList['Atk'] := tblUserToPokemon['Atk'];
-    tblPokemonList['HP'] := tblUserToPokemon['HP'];
-    tblPokemonList['FirstType'] := tblUserToPokemon['FirstType'];
-    tblPokemonList['SecondType'] := tblUserToPokemon['SecondType'];
-    tblPokemonList['Premium'] := tblUserToPokemon['Premium'];
-    tblPokemonList.Post;
-    tblUserToPokemon.Delete;
-
+    tblAvailablePokemon.Append;
+    tblAvailablePokemon['Name'] := tblSelectedPokemon['Name'];
+    tblAvailablePokemon['Atk'] := tblSelectedPokemon['Atk'];
+    tblAvailablePokemon['HP'] := tblSelectedPokemon['HP'];
+    tblAvailablePokemon['FirstType'] := tblSelectedPokemon['FirstType'];
+    tblAvailablePokemon['SecondType'] := tblSelectedPokemon['SecondType'];
+    tblAvailablePokemon['Premium'] := tblSelectedPokemon['Premium'];
+    tblAvailablePokemon.Post;
+    tblSelectedPokemon.Delete;
   end;
 end;
 
@@ -88,62 +90,48 @@ begin
   with dataM do
   begin
     // QUERY SET UP
+    qryClearAvailablePokemon := TADOQuery.Create(nil);
+    qryClearAvailablePokemon.Close;
+    qryClearAvailablePokemon.SQL.Clear;
+    qryClearAvailablePokemon.Connection := connCardGameDB;
+    qryClearAvailablePokemon.SQL.Add('DELETE * FROM AvailablePokemon');
 
+    // Move available pokemon to AvailablePokemon
+    qryMoveAvailable := TADOQuery.Create(nil);
+    qryMoveAvailable.Close;
+    qryMoveAvailable.SQL.Clear;
+    qryMoveAvailable.Connection := connCardGameDB;
+    qryMoveAvailable.SQL.Add('INSERT INTO AvailablePokemon SELECT * FROM PokemonList');
+    {
+    if UserInfo.PremiumUser = True then
+      qryMoveAvailable.SQL.Add('INSERT INTO AvailablePokemon SELECT * FROM PokemonList')
+    else
+      qryMoveAvailable.SQL.Add('INSERT INTO AvailablePokemon SELECT * FROM PokemonList WHERE NOT Premium = True');
+     }
     // Type filter query
-    qryTypeFilter := TADOQuery.Create(Self);
+    qryTypeFilter := TADOQuery.Create(nil);
     qryTypeFilter.Close;
     qryTypeFilter.SQL.Clear;
     qryTypeFilter.Connection := connCardGameDB;
-    qryTypeFilter.SQL.Add('SELECT * ');
-    qryTypeFilter.SQL.Add('FROM PokemonList');
-    qryTypeFilter.SQL.Add('WHERE FirstType = ''' + rdgSort.Items
-        [rdgSort.ItemIndex]);
-    qryTypeFilter.SQL.Add(''' OR  SecondType = ''' + rdgSort.Items
-        [rdgSort.ItemIndex] + '''');
-    qryTypeFilter.Close;
+    qryTypeFilter.SQL.Text :=
+      'SELECT * FROM AvailablePokemon WHERE FirstType = ''' + rdgSort.Items
+      [rdgSort.ItemIndex] + ''' OR  SecondType = ''' + rdgSort.Items
+      [rdgSort.ItemIndex] + '''';
 
     // Sort alphabetically query
-    qryAlphabeticalSort := TADOQuery.Create(Self);
+    qryAlphabeticalSort := TADOQuery.Create(nil);
     qryAlphabeticalSort.Close;
     qryAlphabeticalSort.SQL.Clear;
     qryAlphabeticalSort.Connection := connCardGameDB;
     qryAlphabeticalSort.SQL.Text :=
-      'SELECT * FROM PokemonList ORDER BY Name ASC';
-    qryAlphabeticalSort.Close;
-
-    {
-      // Add selected pokemon to tblUserToPokemon
-      qryAddSelection := TADOQuery.Create(Self);
-      qryAddSelection.Close;
-      qryAddSelection.SQL.Clear;
-      qryAddSelection.Connection := connCardGameDB;
-      qryAddSelection.SQL.Text :=
-      'SELECT * FROM PokemonList WHERE Selected = True';
-      qryAddSelection.Close;
-
-      // Remove selected pokemon from tblUserToPokemon
-      qryRemoveSelection := TADOQuery.Create(Self);
-      qryRemoveSelection.Close;
-      qryRemoveSelection.SQL.Clear;
-      qryRemoveSelection.Connection := connCardGameDB;
-      qryRemoveSelection.SQL.Text :=
-      'SELECT * FROM UserToPokemon WHERE NOT Selected = True';
-      qryRemoveSelection.Close;
-      }
+      'SELECT * FROM AvailablePokemon ORDER BY Name ASC';
 
     // Show available pokemon
-    qryShowAvailable := TADOQuery.Create(Self);
+    qryShowAvailable := TADOQuery.Create(nil);
     qryShowAvailable.Close;
     qryShowAvailable.SQL.Clear;
     qryShowAvailable.Connection := connCardGameDB;
-
-    if UserInfo.PremiumUser = True then
-      qryShowAvailable.SQL.Text := 'SELECT * FROM PokemonList'
-    else
-      qryShowAvailable.SQL.Text :=
-        'SELECT * FROM PokemonList WHERE NOT Premium = True';
-
-    qryShowAvailable.Close;
+    qryShowAvailable.SQL.Text := 'SELECT * FROM AvailablePokemon';
   end;
 end;
 
@@ -151,12 +139,14 @@ procedure TfrmSelection.FormShow(Sender: TObject);
 begin
   with dataM do
   begin
+    qryClearAvailablePokemon.ExecSQL;
+    qryMoveAvailable.ExecSQL;
     qryShowAvailable.Open;
-    dsPokemonList.DataSet := qryShowAvailable;
+    dsAvailablePokemon.DataSet := qryShowAvailable;
 
     dbgSelection.Columns[0].Visible := False;
     dbgAvailable.Columns[0].Visible := False;
-    tblPokemonList.Refresh;
+    tblAvailablePokemon.Refresh;
   end;
 end;
 
@@ -166,30 +156,31 @@ begin
     begin
       with dataM do
       begin
-        if rdgSort.ItemIndex <= 17 then // Type sort
+        if rdgSort.ItemIndex <= 17 then
+        // Type sort
         begin
           qryTypeFilter.Open;
-          dsPokemonList.DataSet := qryTypeFilter;
-          tblPokemonList.Refresh;
+          dsAvailablePokemon.DataSet := qryTypeFilter;
+          tblAvailablePokemon.Refresh;
         end
 
         else if rdgSort.ItemIndex = 19 then // Order alphabetically
         begin
           qryAlphabeticalSort.Open;
-          dsPokemonList.DataSet := qryAlphabeticalSort;
-          tblPokemonList.Refresh;
+          dsAvailablePokemon.DataSet := qryAlphabeticalSort;
+          tblAvailablePokemon.Refresh;
         end
 
         else if rdgSort.ItemIndex = 18 then // Show all
         begin
           qryShowAvailable.Open;
-          dsPokemonList.DataSet := qryShowAvailable;
-          tblPokemonList.Refresh;
+          dsAvailablePokemon.DataSet := qryShowAvailable;
+          tblAvailablePokemon.Refresh;
         end;
       end;
     end
   finally
-
+    // Whatever
   end;
 end;
 

@@ -19,27 +19,31 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    function Find(table: TADOTable; ID, field: string): string; overload;
+    function Find(table: TADOTable; ID, field: string): integer; overload;
+    function Find(table: TADOTable; ID, field: string): boolean; overload;
+
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
-type
-  TUserInfo = record { class }
+  {
+    type
+    TUserInfo = record
     Username: string;
     Admin: boolean;
     PremiumUser: boolean;
     Password: string;
     SelectionString: string;
-    Won : integer;
-    Lost : integer;
-    Created : TDateTime
-  end;
-
+    Won: integer;
+    Lost: integer;
+    Created: TDateTime end;
+    }
 var
   frmLogin: TfrmLogin;
-  UserInfo: TUserInfo;
+  // UserInfo: TUserInfo;
 
 const
   key = 2321;
@@ -64,7 +68,7 @@ begin
       if (tblUsers['Username'] = edtUsername.Text) and
         (DecryptStr(tblUsers['Password'], key) = edtPassword.Text) then
       begin
-        //Showmessage('Valid username and password.');
+        // Showmessage('Valid username and password.');
         if cbSavePass.Checked = True then
         begin
           if FileExists(GetCurrentDir + '/lib/text/savedUser.txt') then
@@ -77,16 +81,17 @@ begin
           end;
         end;
 
-        // Adds current user data to a record for easy access
+        {
+          // Adds current user data to a record for easy access
 
-        UserInfo.Username := tblUsers['Username'];
-        UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
-        UserInfo.Admin := tblUsers['Admin'];
-        UserInfo.PremiumUser := tblUsers['Premium user'];
-        UserInfo.Won := tblUsers['Won'];
-        UserInfo.Lost := tblUsers['Lost'];
-        UserInfo.Created := tblUsers['Account creation date'];
-
+          UserInfo.Username := tblUsers['Username'];
+          UserInfo.Password := (DecryptStr(tblUsers['Password'], key));
+          UserInfo.Admin := tblUsers['Admin'];
+          UserInfo.PremiumUser := tblUsers['Premium user'];
+          UserInfo.Won := tblUsers['Won'];
+          UserInfo.Lost := tblUsers['Lost'];
+          UserInfo.Created := tblUsers['Account creation date'];
+          }
         tblUsers.Close;
 
         frmMainMenu.Show;
