@@ -16,12 +16,8 @@ type
     lblSelection: TLabel;
     lblAvailable: TLabel;
     rdgSort: TRadioGroup;
-    rdbAll: TRadioButton;
-    rdbAlphaSort: TRadioButton;
     btnClear: TButton;
-    procedure rdbAllClick(Sender: TObject);
     procedure rdgSortClick(Sender: TObject);
-    procedure rdbAlphaSortClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure bbAddClick(Sender: TObject);
     procedure bbRemoveClick(Sender: TObject);
@@ -52,15 +48,12 @@ procedure TfrmSelection.bbAddClick(Sender: TObject);
 begin
   with dataM do
   begin
-    { qryAddSelection.Open;
-      dsUserToPokemon.DataSet := qryAddSelection;
-      tblUserToPokemon.Refresh; }
     tblUserToPokemon.Append;
     tblUserToPokemon['Name'] := tblPokemonList['Name'];
     tblUserToPokemon['Atk'] := tblPokemonList['Atk'];
     tblUserToPokemon['HP'] := tblPokemonList['HP'];
-    tblUserToPokemon['First type'] := tblPokemonList['First type'];
-    tblUserToPokemon['Second type'] := tblPokemonList['Second type'];
+    tblUserToPokemon['FirstType'] := tblPokemonList['FirstType'];
+    tblUserToPokemon['SecondType'] := tblPokemonList['SecondType'];
     tblUserToPokemon['Premium'] := tblPokemonList['Premium'];
     tblUserToPokemon.Post;
     tblPokemonList.Delete;
@@ -71,17 +64,12 @@ procedure TfrmSelection.bbRemoveClick(Sender: TObject);
 begin
   with dataM do
   begin
-    {
-      qryRemoveSelection.Open;
-      dsUserToPokemon.DataSet := qryRemoveSelection;
-      tblUserToPokemon.Refresh;
-      }
     tblPokemonList.Append;
     tblPokemonList['Name'] := tblUserToPokemon['Name'];
     tblPokemonList['Atk'] := tblUserToPokemon['Atk'];
     tblPokemonList['HP'] := tblUserToPokemon['HP'];
-    tblPokemonList['First type'] := tblUserToPokemon['First type'];
-    tblPokemonList['Second type'] := tblUserToPokemon['Second type'];
+    tblPokemonList['FirstType'] := tblUserToPokemon['FirstType'];
+    tblPokemonList['SecondType'] := tblUserToPokemon['SecondType'];
     tblPokemonList['Premium'] := tblUserToPokemon['Premium'];
     tblPokemonList.Post;
     tblUserToPokemon.Delete;
@@ -102,53 +90,58 @@ begin
     // QUERY SET UP
 
     // Type filter query
+    qryTypeFilter := TADOQuery.Create(Self);
     qryTypeFilter.Close;
     qryTypeFilter.SQL.Clear;
-    qryTypeFilter := TADOQuery.Create(nil);
     qryTypeFilter.Connection := connCardGameDB;
-    qryTypeFilter.SQL.Text := 'SELECT * ' + 'FROM tblPokemonList' + 'WHERE ' +
-      'First type = ''' + rdgSort.Items[rdgSort.ItemIndex] +
-      ''' OR  Second Type = ''' + rdgSort.Items[rdgSort.ItemIndex] + '''';
+    qryTypeFilter.SQL.Add('SELECT * ');
+    qryTypeFilter.SQL.Add('FROM PokemonList');
+    qryTypeFilter.SQL.Add('WHERE FirstType = ''' + rdgSort.Items
+        [rdgSort.ItemIndex]);
+    qryTypeFilter.SQL.Add(''' OR  SecondType = ''' + rdgSort.Items
+        [rdgSort.ItemIndex] + '''');
     qryTypeFilter.Close;
 
     // Sort alphabetically query
-    qryAlphabeticalSort := TADOQuery.Create(nil);
+    qryAlphabeticalSort := TADOQuery.Create(Self);
     qryAlphabeticalSort.Close;
     qryAlphabeticalSort.SQL.Clear;
     qryAlphabeticalSort.Connection := connCardGameDB;
     qryAlphabeticalSort.SQL.Text :=
-      'SELECT * FROM tblPokemonList ORDER BY Name ASC';
+      'SELECT * FROM PokemonList ORDER BY Name ASC';
     qryAlphabeticalSort.Close;
 
-    // Add selected pokemon to tblUserToPokemon
-    qryAddSelection := TADOQuery.Create(nil);
-    qryAddSelection.Close;
-    qryAddSelection.SQL.Clear;
-    qryAddSelection.Connection := connCardGameDB;
-    qryAddSelection.SQL.Text :=
-      'SELECT * FROM tblPokemonList WHERE Selected = True';
-    qryAddSelection.Close;
+    {
+      // Add selected pokemon to tblUserToPokemon
+      qryAddSelection := TADOQuery.Create(Self);
+      qryAddSelection.Close;
+      qryAddSelection.SQL.Clear;
+      qryAddSelection.Connection := connCardGameDB;
+      qryAddSelection.SQL.Text :=
+      'SELECT * FROM PokemonList WHERE Selected = True';
+      qryAddSelection.Close;
 
-    // Remove selected pokemon from tblUserToPokemon
-    qryRemoveSelection := TADOQuery.Create(nil);
-    qryRemoveSelection.Close;
-    qryRemoveSelection.SQL.Clear;
-    qryRemoveSelection.Connection := connCardGameDB;
-    qryRemoveSelection.SQL.Text :=
-      'SELECT * FROM tblUserToPokemon WHERE NOT Selected = True';
-    qryRemoveSelection.Close;
+      // Remove selected pokemon from tblUserToPokemon
+      qryRemoveSelection := TADOQuery.Create(Self);
+      qryRemoveSelection.Close;
+      qryRemoveSelection.SQL.Clear;
+      qryRemoveSelection.Connection := connCardGameDB;
+      qryRemoveSelection.SQL.Text :=
+      'SELECT * FROM UserToPokemon WHERE NOT Selected = True';
+      qryRemoveSelection.Close;
+      }
 
     // Show available pokemon
-    qryShowAvailable := TADOQuery.Create(nil);
+    qryShowAvailable := TADOQuery.Create(Self);
     qryShowAvailable.Close;
     qryShowAvailable.SQL.Clear;
     qryShowAvailable.Connection := connCardGameDB;
 
     if UserInfo.PremiumUser = True then
-      qryShowAvailable.SQL.Text := 'SELECT * FROM tblPokemonList'
+      qryShowAvailable.SQL.Text := 'SELECT * FROM PokemonList'
     else
       qryShowAvailable.SQL.Text :=
-        'SELECT * FROM tblPokemonList WHERE NOT Premium = True';
+        'SELECT * FROM PokemonList WHERE NOT Premium = True';
 
     qryShowAvailable.Close;
   end;
@@ -161,38 +154,42 @@ begin
     qryShowAvailable.Open;
     dsPokemonList.DataSet := qryShowAvailable;
 
+    dbgSelection.Columns[0].Visible := False;
     dbgAvailable.Columns[0].Visible := False;
-    tblPokemonList.Refresh;
-  end;
-end;
-
-procedure TfrmSelection.rdbAllClick(Sender: TObject);
-begin
-  with dataM do
-  begin
-    qryShowAvailable.Open;
-    dsPokemonList.DataSet := qryShowAvailable;
-    tblPokemonList.Refresh;
-  end;
-end;
-
-procedure TfrmSelection.rdbAlphaSortClick(Sender: TObject);
-begin
-  with dataM do
-  begin
-    qryAlphabeticalSort.Open;
-    dsPokemonList.DataSet := qryAlphabeticalSort;
     tblPokemonList.Refresh;
   end;
 end;
 
 procedure TfrmSelection.rdgSortClick(Sender: TObject);
 begin
-  with dataM do
-  begin
-    qryTypeFilter.Open;
-    dsPokemonList.DataSet := qryTypeFilter;
-    tblPokemonList.Refresh;
+  try
+    begin
+      with dataM do
+      begin
+        if rdgSort.ItemIndex <= 17 then // Type sort
+        begin
+          qryTypeFilter.Open;
+          dsPokemonList.DataSet := qryTypeFilter;
+          tblPokemonList.Refresh;
+        end
+
+        else if rdgSort.ItemIndex = 19 then // Order alphabetically
+        begin
+          qryAlphabeticalSort.Open;
+          dsPokemonList.DataSet := qryAlphabeticalSort;
+          tblPokemonList.Refresh;
+        end
+
+        else if rdgSort.ItemIndex = 18 then // Show all
+        begin
+          qryShowAvailable.Open;
+          dsPokemonList.DataSet := qryShowAvailable;
+          tblPokemonList.Refresh;
+        end;
+      end;
+    end
+  finally
+
   end;
 end;
 

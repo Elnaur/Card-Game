@@ -131,10 +131,10 @@ object frmSelection: TfrmSelection
   object rdgSort: TRadioGroup
     Left = 8
     Top = 16
-    Width = 409
+    Width = 625
     Height = 79
     Caption = 'Sort Pokemon'
-    Columns = 6
+    Columns = 7
     Ctl3D = True
     DoubleBuffered = False
     Font.Charset = DEFAULT_CHARSET
@@ -142,6 +142,7 @@ object frmSelection: TfrmSelection
     Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = []
+    ItemIndex = 18
     Items.Strings = (
       'Bug'
       'Electric'
@@ -160,42 +161,14 @@ object frmSelection: TfrmSelection
       'Ghost'
       'Ice'
       'Psychic'
-      'Water')
+      'Water'
+      'All'
+      'Alphabetical')
     ParentCtl3D = False
     ParentDoubleBuffered = False
     ParentFont = False
     TabOrder = 5
     OnClick = rdgSortClick
-  end
-  object rdbAll: TRadioButton
-    Left = 432
-    Top = 24
-    Width = 41
-    Height = 17
-    Caption = 'All'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 6
-    OnClick = rdbAllClick
-  end
-  object rdbAlphaSort: TRadioButton
-    Left = 432
-    Top = 47
-    Width = 137
-    Height = 17
-    Caption = 'Sort alphabetically'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 7
-    OnClick = rdbAlphaSortClick
   end
   object btnClear: TButton
     Left = 608
@@ -203,6 +176,6 @@ object frmSelection: TfrmSelection
     Width = 99
     Height = 25
     Caption = 'Clear selection'
-    TabOrder = 8
+    TabOrder = 6
   end
 end

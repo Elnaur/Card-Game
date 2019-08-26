@@ -11,6 +11,7 @@ object frmViewStats: TfrmViewStats
   Font.Name = 'Verdana'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -28,11 +29,17 @@ object frmViewStats: TfrmViewStats
     ParentFont = False
   end
   object lblUsername: TLabel
-    Left = 112
+    Left = 96
     Top = 80
-    Width = 71
-    Height = 13
+    Width = 102
+    Height = 18
     Caption = 'lblUsername'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
   end
   object lblWon: TLabel
     Left = 40
@@ -64,44 +71,58 @@ object frmViewStats: TfrmViewStats
   end
   object lblPremium: TLabel
     Left = 40
-    Top = 288
-    Width = 112
+    Top = 320
+    Width = 83
     Height = 13
-    Caption = 'Premium account : '
+    Caption = 'Account type :'
   end
-  object Label1: TLabel
+  object lblUWon: TLabel
     Left = 208
     Top = 160
     Width = 45
     Height = 13
     Caption = 'lblUWon'
   end
-  object Label2: TLabel
+  object lblULost: TLabel
     Left = 208
     Top = 192
     Width = 44
     Height = 13
     Caption = 'lblULost'
   end
-  object Label3: TLabel
+  object lblUPlayed: TLabel
     Left = 208
     Top = 224
     Width = 59
     Height = 13
     Caption = 'lblUPlayed'
   end
-  object Label4: TLabel
+  object lblUAge: TLabel
     Left = 208
     Top = 256
     Width = 43
     Height = 13
     Caption = 'lblUAge'
   end
-  object Label5: TLabel
+  object lblUPremium: TLabel
     Left = 208
-    Top = 288
+    Top = 320
     Width = 72
     Height = 13
     Caption = 'lblUPremium'
+  end
+  object lblCreated: TLabel
+    Left = 40
+    Top = 288
+    Width = 55
+    Height = 13
+    Caption = 'Created :'
+  end
+  object lblUCreated: TLabel
+    Left = 208
+    Top = 288
+    Width = 67
+    Height = 13
+    Caption = 'lblUCreated'
   end
 end
